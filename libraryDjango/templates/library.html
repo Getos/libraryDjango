@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        .displayBox {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin: 16px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Library</h1>
+    <div id="library"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchBooks();
+        });
+
+        async function fetchBooks() {
+            try {
+                const response = await fetch('/books');
+                const books = await response.json();
+
+                const libraryDiv = document.getElementById('library');
+                libraryDiv.innerHTML = ""; // Clear previous content
+
+                books.forEach((book, index) => {
+                    const bookCard = document.createElement('div');
+                    bookCard.classList.add('displayBox');
+                    bookCard.dataset.index = index; // Set dataset attribute for card
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.classList.add('removeBtn');
+                    removeBtn.textContent = 'delete book';
+                    removeBtn.dataset.index = index;
+
+                    const checkBtn = document.createElement('button');
+                    checkBtn.classList.add('checkBtn');
+                    checkBtn.textContent = 'read or unread';
+                    checkBtn.dataset.index = index;
+
+                    bookCard.innerHTML = `
+                        <h3>${book.title}</h3>
+                        <p>Author: ${book.author.name}</p>
+                        <p>Pages: ${book.pages}</p>
+                        <p>Read: ${book.readCheck ? 'Yes' : 'No'}</p>
+                    `;
+
+                    bookCard.appendChild(removeBtn);
+                    bookCard.appendChild(checkBtn);
+                    libraryDiv.appendChild(bookCard);
+                });
+
+                document.querySelectorAll('.removeBtn').forEach(btn => {
+                    btn.addEventListener('click', deleteCard);
+                });
+                document.querySelectorAll('.checkBtn').forEach(btn => {
+                    btn.addEventListener('click', changeRead);
+                });
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        }
+
+        async function changeRead(event) {
+            const index = event.target.dataset.index;
+            const book = books[index];
+            book.readCheck = !book.readCheck;
+
+            try {
+                const response = await fetch(`/book/${book._id}/update`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ readCheck: book.readCheck })
+                });
+                const data = await response.json();
+                console.log('Book read status updated:', data);
+                fetchBooks(); // Re-fetch books to update UI
+            } catch (error) {
+                console.error('Error updating read status:', error);
+            }
+        }
+
+        async function deleteCard(event) {
+            const index = event.target.dataset.index;
+            const book = books[index];
+
+            try {
+                const response = await fetch(`/book/${book._id}/delete`, {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                console.log('Book deleted:', data);
+                fetchBooks(); // Re-fetch books to update UI
+            } catch (error) {
+                console.error('Error deleting book:', error);
+            }
+        }
+    </script>
+</body>
+</html>

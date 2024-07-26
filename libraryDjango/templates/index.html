@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="module" src="{% static 'javascripts/bookConstructor.js' %}" defer></script>
+    <script type="module" src="{% static 'javascripts/pageController.js' %}" defer></script>
+    <script type="module" src="{% static 'javascripts/main.js' %}" defer></script>
+
+    <title>myLibrary</title>
+</head>
+<body>
+    <div class="container">
+        <div class="leftSide" id="library">
+            <!-- Book cards will be added here -->
+        </div>
+
+        <div class="rightSide">
+            <button id="showDialogBtn">Show the dialog</button> 
+            <div class="rightSide">
+                <a href="./register.html" class="btnRegister">Register new user</a>
+            </div>
+
+    <dialog id="bookDialog">
+        <button id="closeDialogBtn" autofocus>Close</button>     
+        <div class="containerBtn">  
+            <form id="bookForm">
+                <div class="form">
+                    <p style="padding-left: 20px; padding-top: 20px;">Welcome to the library</p>
+                    <div class="row">
+                        <div class="input-label">
+                            <label for="book-name">Book name</label>
+                            <input type="text" name="book-name" id="book-name" required>
+                        </div>
+                        <div class="input-label">
+                            <label for="author-name">Author</label>
+                            <input type="text" name="author-name" id="author-name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-label">
+                            <label for="pages">Pages number</label>
+                            <input type="number" name="pages" id="pages" required>
+                        </div>
+                        <div class="input-label">
+                            <label for="readCheck">Read Check</label>
+                            <input type="checkbox" name="readCheck" id="readCheck">
+                        </div>
+                    </div>
+                    <button type="submit">Add new book</button>
+                </div>
+            </form>
+        </div>
+    </dialog>
+    <button id="viewLibraryBtn">View Library</button>
+
+    <script>
+        document.getElementById('viewLibraryBtn').addEventListener('click', () => {
+            window.location.href = './library.html';
+        });
+    </script>
+    </body>
+</html>
