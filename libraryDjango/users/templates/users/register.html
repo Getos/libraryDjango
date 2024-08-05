@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Register</title>
+</head>
+<body>
+    <div class="rightSide">
+        <a href="{% url 'users:login'%}" class="btnRegister">login</a>
+    </div>
+<section class="container2"> Register as a new user
+    <form class="inputContainer" action="/users/register/" method="post">
+        {{form}}
+        {% csrf_token %}
+        
+        <button class="btn1">Submit</button>
+      </form>    
+</form>
+</section>
+</body>
+</html>

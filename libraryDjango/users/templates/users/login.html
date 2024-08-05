@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {%block title %}
+    User login
+    {%endblock%}
+</head>
+<body>
+    <div class="rightSide">
+        <a href="{% url 'home'%}" class="btnRegister">back home</a>
+    </div>
+<section class="container2"> login
+    <form class="inputContainer" action="/users/login/" method="post">
+        {{form}}
+        {% csrf_token %}
+        
+        <button class="btn1">Submit</button>
+      </form>    
+</form>
+</section>
+</body>
+</html>

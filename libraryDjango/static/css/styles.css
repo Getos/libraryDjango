@@ -59,6 +59,15 @@ body {
     text-decoration: none;
     font-family: "Geneva";
 }
+#btn1 {
+    padding: 1px 6px;
+    border: 1px outset buttonborder;
+    border-radius: 3px;
+    color: buttontext;
+    background-color: buttonface;
+    text-decoration: none;
+    font-family: "Geneva";
+}
 .inputContainer{
     display: flex;
     flex-direction: column;
@@ -90,7 +99,13 @@ body {
 .invalid {
     border-color: red;
 }
-
+.logout{
+    display: inline-block
+}
+.logout-button{
+    font-size:2.5rem;
+    background-color: black;
+}
 #book-name:invalid {
     border: 2px solid red; /* Optionally, add a red border */
 }

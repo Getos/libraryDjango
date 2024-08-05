@@ -13,15 +13,23 @@
     <title>myLibrary</title>
 </head>
 <body>
+
     <div class="container">
         <div class="leftSide" id="library">
             <!-- Book cards will be added here -->
         </div>
 
         <div class="rightSide">
+            <form class"logout" action="{% url 'users:logout'%}" method:"post">
+                {% csrf_token %}
+                <button class:"logout-button" aria-label="user logout" title="user logout"></button>
+            </form>
             <button id="showDialogBtn">Show the dialog</button> 
             <div class="rightSide">
-                <a href="./register.html" class="btnRegister">Register new user</a>
+                <a href="{% url 'users:register'%}" class="btnRegister">Register new user</a>
+            </div>
+            <div>
+                <a href="{% url 'posts_list'%}">postlist</a>
             </div>
 
     <dialog id="bookDialog">
